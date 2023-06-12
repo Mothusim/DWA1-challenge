@@ -76,7 +76,7 @@ function optionsFragment(items, firstOptionText) {
   const fragment = document.createDocumentFragment();
 
   const defaultOptionElement = document.createElement('option');
-  defaultOptionElement.value = 'any';
+  
   defaultOptionElement.innerText = firstOptionText;
   fragment.appendChild(defaultOptionElement);
 
@@ -90,11 +90,11 @@ function optionsFragment(items, firstOptionText) {
   return fragment;
 }
 
-const genreHtml = optionsFragment(genres, 'All Genres');
-document.querySelector('[data-search-genres]').appendChild(genreHtml);
+const genreOptions = optionsFragment(genres, 'All Genres');
+document.querySelector('[data-search-genres]').appendChild(genreOptions);
 
-const authorsHtml = optionsFragment(authors, 'All Authors');
-document.querySelector('[data-search-authors]').appendChild(authorsHtml);
+const authorsOptions = optionsFragment(authors, 'All Authors');
+document.querySelector('[data-search-authors]').appendChild(authorsOptions);
 
 
 /**
@@ -229,6 +229,7 @@ document.querySelector('[data-search-form]').addEventListener('submit', (event) 
 
 
 document.querySelector('[data-list-button]').addEventListener('click', () => {
+    
     const startIndex = page * BOOKS_PER_PAGE;
     const endIndex = (page + 1) * BOOKS_PER_PAGE;
     const fragment = document.createDocumentFragment();
