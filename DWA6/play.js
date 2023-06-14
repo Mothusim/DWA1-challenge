@@ -277,27 +277,27 @@ const App = {
   },
 
   getListActiveElement() {
-    return document.querySelector('.list__active');
+    return document.querySelector('[data-list-active]');
   },
 
   getListBlurElement() {
-    return document.querySelector('.list__blur');
+    return document.querySelector('[data-list-blur]');
   },
 
   getListImageElement() {
-    return document.querySelector('.list__image');
+    return document.querySelector('[data-list-image]');
   },
 
   getListTitleElement() {
-    return document.querySelector('.list__title');
+    return document.querySelector('[data-list-title]');
   },
 
   getListSubtitleElement() {
-    return document.querySelector('.list__subtitle');
+    return document.querySelector('[data-list-subtitle]');
   },
 
   getListDescriptionElement() {
-    return document.querySelector('.list__description');
+    return document.querySelector('[data-list-description]');
   },
 };
 

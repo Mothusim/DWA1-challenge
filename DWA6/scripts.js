@@ -1,4 +1,4 @@
-// @ts-check
+
 
 import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
 
@@ -259,31 +259,46 @@ document.querySelector('[data-list-button]').addEventListener('click', () => {
   });
 
 
-document.querySelector('[data-list-items]').addEventListener('click', (event) => {
-    const pathArray = Array.from(event.path || event.composedPath())
-    let active = null
+  function listItemClick(books, authors) {
 
-    for (const node of pathArray) {
+    const activeListElement = document.querySelector('[data-list-active]');
+    const blurElement = document.querySelector('[data-list-blur]');
+    const imageElement = document.querySelector('[data-list-image]');
+    const titleElement = document.querySelector('[data-list-title]');
+    const subtitleElement = document.querySelector('[data-list-subtitle]');
+    const descriptionElement = document.querySelector('[data-list-description]');
+
+    return function(event) {
+      const pathArray = Array.from(event.path || event.composedPath())
+      let active = null
+  
+      for (const node of pathArray) {
         if (active) break
-
+  
         if (node?.dataset?.preview) {
-            let result = null
-    
-            for (const singleBook of books) {
-                if (result) break;
-                if (singleBook.id === node?.dataset?.preview) result = singleBook
-            } 
-        
-            active = result
+          let result = null
+  
+          for (const singleBook of books) {
+            if (result) break;
+            if (singleBook.id === node?.dataset?.preview) result = singleBook
+          }
+  
+          active = result
         }
+      }
+  
+      if (active) {
+        activeListElement.open = true
+        blurElement.src = active.image
+        imageElement.src = active.image
+        titleElement.innerText = active.title
+        subtitleElement.innerText = `${authors[active.author]} (${new Date(active.published).getFullYear()})`
+        descriptionElement.innerText = active.description
+      }
     }
-    
-    if (active) {
-        document.querySelector('[data-list-active]').open = true
-        document.querySelector('[data-list-blur]').src = active.image
-        document.querySelector('[data-list-image]').src = active.image
-        document.querySelector('[data-list-title]').innerText = active.title
-        document.querySelector('[data-list-subtitle]').innerText = `${authors[active.author]} (${new Date(active.published).getFullYear()})`
-        document.querySelector('[data-list-description]').innerText = active.description
-    }
-})
+  }
+  
+  const listItemClickListener = listItemClick(books, authors);
+  document.querySelector('[data-list-items]').addEventListener('click', listItemClickListener);
+  
+  
