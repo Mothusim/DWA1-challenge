@@ -1,4 +1,4 @@
-import { books, authors, genres, BOOKS_PER_PAGE } from "./data.js";
+import { books, authors, genres, BOOKS_PER_PAGE } from "../DWA6/data.js";
 
 /**
  * @type {number} page - page number
