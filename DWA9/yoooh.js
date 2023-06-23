@@ -44,21 +44,44 @@ function createBookPreview({ author, id, image, title }) {
   return element;
 }
 
-let fragment = document.createDocumentFragment();
-let extracted = matches.slice(range[0], range[1]);
 
-for (const { author, image, title, id } of extracted) {
-  const preview = createBookPreview({
-    author,
-    id,
-    image,
-    title,
-  });
 
-  fragment.appendChild(preview);
+class BookPreview extends HTMLElement {
+
+  constructor(){
+
+    super();
+    this.attachShadow({ mode: 'open' });
+    this.listeItems = document.querySelector('[data-list-items]');
+    
+    this.fragment = document.createDocumentFragment();
+    this.extracted = matches.slice(range[0], range[1]);
+    
+   
+  }
+  
+  connectedCallback(){
+    
+    for (const { author, image, title, id } of this.extracted) {
+      const preview = createBookPreview({
+        author,
+        id,
+        image,
+        title,
+      });
+    
+      this.fragment.appendChild(preview);
+    
+    }
+    
+    this.listeItems.appendChild(this.fragment);
+
+    
+
+  }
 }
+customElements.define('book-preview', BookPreview);
 
-document.querySelector("[data-list-items]").appendChild(fragment);
 
 /**
  * The optionsFragment function creates the first or default option on the search bars for both genres search option and authors search option.

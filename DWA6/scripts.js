@@ -46,22 +46,33 @@ function createBookPreview({ author, id, image, title }) {
   return element;
 }
 
-let fragment = document.createDocumentFragment();
-let extracted = matches.slice(range[0], range[1]);
+class BookPreview extends HTMLElement {
+
+  constructor(){
+    super();
+    this.attachShadow({ mode: 'open' });
+    this.listeItems = document.querySelector('[data-list-items]');
+    this.fragment = document.createDocumentFragment();
+    this.extracted = matches.slice(range[0], range[1]);
+  }
   
-for (const { author, image, title, id } of extracted) {
-  const preview = createBookPreview({
-    author,
-    id,
-    image,
-    title,
-  });
-
-  fragment.appendChild(preview);
-
+  connectedCallback(){
+    
+    for (const { author, image, title, id } of this.extracted) {
+      const preview = createBookPreview({
+        author,
+        id,
+        image,
+        title,
+      });
+    
+      this.fragment.appendChild(preview);
+    
+    }
+    this.listeItems.appendChild(this.fragment);
+  }
 }
-
-document.querySelector('[data-list-items]').appendChild(fragment)
+customElements.define('book-preview', BookPreview);
 
 
 
