@@ -64,75 +64,64 @@ console.log(newObj);
 
 products.forEach((productName) => {console.log(productName.product)});
 
+
 //number 2
 
 const fitleredProducts = products.filter((productName) => productName.product.length > 5);
 
 console.log(fitleredProducts);
 
-//number 3
 
-//Using both filter and map. Convert all prices that are strings to numbers, and remove all products from the array that do not have prices.
-// After this has been done then use reduce to calculate the combined price of all remaining products.
+// number 3
 
-// products.filter((productPrice) => (typeof productPrice.price == 'String' ){
+const strPriceToNum = products.map((item) => {
 
-// });
+  const y = typeof item.price == 'string' ? parseInt(item.price) : item.price
 
-// for (let i=0; i<products.length; i++){
+  return y
 
-//     console.log(typeof products[0].price)
+})
 
-//     if(typeof products[i].price == 'string' ){
+const filteredStrPriceToNum = strPriceToNum.filter((numNowPrice) => !isNaN(numNowPrice))
 
-//         console.log(parseInt(products[i].price));
+const totalPrice = filteredStrPriceToNum.reduce((a, b) => a +b)
 
-//     } else{
-//         console.log(products.price);
-//     }
+console.log(totalPrice)
 
-// }
 
+const productNames = products.reduce(((a, b) => a += ` ${b.product}`), '')
+
+console.log(productNames)
+
+
+// number 5
 
 const { highest, lowest } = products.reduce((result, product) => {
-    if (typeof parseInt(product.price) == 'number' && !(isNaN(parseInt(product.price)))){
-      if (!result.highest || product.price > result.highest.price) {
-        result.highest = product;
-      }
-      if (!result.lowest || product.price < result.lowest.price) {
-        result.lowest = product;
-      }
+  if (typeof parseInt(product.price) == 'number' && !(isNaN(parseInt(product.price)))){
+    if (!result.highest || product.price > result.highest.price) {
+      result.highest = product;
     }
-    return result;
-  }, {});
-  console.log(`Highest: ${highest.product}. Lowest: ${lowest.product}`);
-
-
-
-for (const item of products){
-    for (const [key, value] of Object.entries(item)){
-
-        let count = 0;
-
-        if (typeof item.price == 'string'){
-
-            const newN = parseInt(item.price);
-            
-            
-        }else{
-            const newN = item.price;
-            console.log(newN * 2)
-        }
-
-        // if (typeof item.price == 'number') {
-        //     count += item.price
-        // }
-
-        
-
+    if (!result.lowest || product.price < result.lowest.price) {
+      result.lowest = product;
     }
-}
+  }
+  return result;
+}, {});
+console.log(`Highest: ${highest.product}. Lowest: ${lowest.product}`);
 
-// if(typeof products[1].price == 'string' ){
-//     console.log('hey')
-// }
+
+// number 6
+
+const entries = Object.entries(products)
+
+console.log(entries)
+
+const changedEntries = entries.reduce(((a, b) => {
+
+  
+
+  return a
+
+}), {})
+
+console.log(changedEntries)

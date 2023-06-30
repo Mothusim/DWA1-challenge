@@ -10,3 +10,7 @@ export  const products = [
     { product: 'coffee', price: 10 },
     { product: 'tea', price: '' },
   ]
+
+  array.forEach(element => {
+    
+  });
